@@ -31,6 +31,14 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
+
+        stage("sonarqube"){
+            steps{
+                withSonarQubeEnv('Sonarqube_server'){
+                    sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
     }
     
     triggers {
